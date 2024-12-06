@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BukuController;
+use App\Http\Controllers\Api\TodoListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //API RINGKAS
 Route::apiResource('buku',BukuController::class);
+
+//api todo list
+Route::apiResource('todo_list', TodoListController::class);
 
 

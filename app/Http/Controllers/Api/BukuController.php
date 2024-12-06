@@ -118,7 +118,7 @@ class BukuController extends Controller
                 'status' => false,
                 'message' => 'Gagal melakukan update data',
                 'data' => $validator->errors()
-            ], 400);
+            ], 404);
         }
 
         // Masukkan kolom yang dibutuhkan
@@ -154,6 +154,6 @@ class BukuController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'sukses menghapus data'
-        ]);
+        ], 200);
     }
 }
