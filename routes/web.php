@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+//buku
+Route::get('/buku', [BukuController::class,'index']);
+Route::get('/add/buku', [BukuController::class,'create']);
+Route::post('/add/buku', [BukuController::class,'store'])->name('store');
+Route::get('/buku/{id}', [BukuController::class,'edit']);
+Route::post('/edit/buku', [BukuController::class,'update'])->name('update');
+Route::get('/buku/show/{id}', [BukuController::class, 'show'])->name('buku.show');
+Route::get('/delete/{id}',[BukuController::class,'destroy']);
+
