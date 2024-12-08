@@ -61,74 +61,37 @@
             </div>
             <div class="row justify-content-center fs-5 text-center">
                 <div class="card">
-                    <div class="card-header">
-                        <a href="/add/produk" class="btn btn-success btn-sm float-end">Tambah Produk</a>
-                    </div>
-                    @if (Session::has('success'))
-                    <span class="alert alert-success p-2">{{Session::get('success')}}</span>
-                    @endif
+                    <div class="card-header">Detail Data Produk</div>
                     @if (Session::has('fail'))
                     <span class="alert alert-danger p-2">{{Session::get('fail')}}</span>
                     @endif
-
                     <div class="card-body">
-                        <table class="table table-sm table-striped table-bordered">
-                            <thead>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Deskripsi</th>
-                                <th>Stok</th>
-                                <th>Foto</th>
-                                <th>Harga</th>
-                                <th colspan="3" class="text-center">Action</th>
-                            </thead>
-                            <tbody>
-                                @if (count($data_produk )> 0)
-                                @forEach($data_produk as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->nama}}</td>
-                                    <td>{{$item->kategori}}</td>
-                                    <td>{{$item->deskripsi}}</td>
-                                    <td>{{$item->stok}}</td>
-                                    <td>
-                                        @if($item->gambar && file_exists(public_path('img/' . $item->gambar)))
-                                        <img src="{{ asset('img/' . $item->gambar) }}" alt="{{ $item->nama }}" width="100">
-                                        @else
-                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image" width="100">
-                                        @endif
-                                    </td>
+                        <div class="mb-3">
+                            <strong>Nama:</strong> {{ $show_produk->nama }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Kategori:</strong> {{ $show_produk->kategori }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Deskripsi:</strong> {{ $show_produk->deskripsi }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Stok:</strong> {{ $show_produk->stok }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Harga:</strong> {{ $show_produk->harga }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Gambar:</strong>
+                            @if($show_produk->gambar && file_exists(public_path('img/' . $show_produk->gambar)))
+                            <img src="{{ asset('img/' . $show_produk->gambar) }}" alt="Gambar Produk" width="100">
+                            @else
+                            <p>Gambar tidak tersedia.</p>
+                            @endif
+                        </div>
 
-
-
-                                    <td>{{$item->harga}}</td>
-                                    <td>
-                                        <a href="/produk/{{$item->id}}" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/delete/{{$item->id}}" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-trash"></i> Delete
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('produk.show', $item->id) }}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-eye"></i> Show
-                                        </a>
-                                    </td>
-
-                                </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="8">No user Found!</td>
-                                </tr>
-                                @endif
-                            </tbody>
-                        </table>
                     </div>
+
                 </div>
             </div>
         </div>

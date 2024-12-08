@@ -61,73 +61,60 @@
             </div>
             <div class="row justify-content-center fs-5 text-center">
                 <div class="card">
-                    <div class="card-header">
-                        <a href="/add/produk" class="btn btn-success btn-sm float-end">Tambah Produk</a>
-                    </div>
-                    @if (Session::has('success'))
-                    <span class="alert alert-success p-2">{{Session::get('success')}}</span>
+                    <div class="card-header">Tambah Data Buku</div>
+                    @if(Session::has('fail'))
+                    <span class="alert alert-danger p-2">{{$Session::get('fail')}}</span>
                     @endif
-                    @if (Session::has('fail'))
-                    <span class="alert alert-danger p-2">{{Session::get('fail')}}</span>
-                    @endif
-
                     <div class="card-body">
-                        <table class="table table-sm table-striped table-bordered">
-                            <thead>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Deskripsi</th>
-                                <th>Stok</th>
-                                <th>Foto</th>
-                                <th>Harga</th>
-                                <th colspan="3" class="text-center">Action</th>
-                            </thead>
-                            <tbody>
-                                @if (count($data_produk )> 0)
-                                @forEach($data_produk as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->nama}}</td>
-                                    <td>{{$item->kategori}}</td>
-                                    <td>{{$item->deskripsi}}</td>
-                                    <td>{{$item->stok}}</td>
-                                    <td>
-                                        @if($item->gambar && file_exists(public_path('img/' . $item->gambar)))
-                                        <img src="{{ asset('img/' . $item->gambar) }}" alt="{{ $item->nama }}" width="100">
-                                        @else
-                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image" width="100">
-                                        @endif
-                                    </td>
+                    <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput" class="form-label">Nama</label>
+                                <input type="text" name="nama" value="{{old('nama')}}" class="form-control" id="formGroupExampleInput" placeholder="Enter nama">
+                                @error('nama')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Kategori</label>
+                                <input type="text" name="kategori" value="{{old('kategori')}}" class="form-control" id="formGroupExampleInput2" placeholder="Enter kategori">
+                                @error('kategori')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Deskripsi</label>
+                                <textarea name="deskripsi" class="form-control" id="formGroupExampleInput2" placeholder="Enter Deskripsi">{{ old('deskripsi') }}</textarea>
+                                @error('deskripsi')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Stok</label>
+                                <input type="number" name="stok" value="{{old('stok')}}" class="form-control" id="formGroupExampleInput2" placeholder="Enter Stok">
+                                @error('stok')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Gambar</label>
+                                <input type="file" name="gambar" value="{{old('gambar')}}" class="form-control" id="formGroupExampleInput2" placeholder="Enter gambar">
+                                @error('gambar')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Harga</label>
+                                <input type="number" name="harga" value="{{old('arga')}}" class="form-control" id="formGroupExampleInput2" placeholder="Enter Harga">
+                                @error('harga')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
 
+                        </form>
 
-                                    <td>{{$item->harga}}</td>
-                                    <td>
-                                        <a href="/produk/{{$item->id}}" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/delete/{{$item->id}}" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-trash"></i> Delete
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('produk.show', $item->id) }}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-eye"></i> Show
-                                        </a>
-                                    </td>
-
-                                </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="8">No user Found!</td>
-                                </tr>
-                                @endif
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

@@ -61,75 +61,70 @@
             </div>
             <div class="row justify-content-center fs-5 text-center">
                 <div class="card">
-                    <div class="card-header">
-                        <a href="/add/produk" class="btn btn-success btn-sm float-end">Tambah Produk</a>
-                    </div>
-                    @if (Session::has('success'))
-                    <span class="alert alert-success p-2">{{Session::get('success')}}</span>
-                    @endif
+                    <div class="card-header">Edit Data Produk</div>
                     @if (Session::has('fail'))
                     <span class="alert alert-danger p-2">{{Session::get('fail')}}</span>
                     @endif
-
                     <div class="card-body">
-                        <table class="table table-sm table-striped table-bordered">
-                            <thead>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Deskripsi</th>
-                                <th>Stok</th>
-                                <th>Foto</th>
-                                <th>Harga</th>
-                                <th colspan="3" class="text-center">Action</th>
-                            </thead>
-                            <tbody>
-                                @if (count($data_produk )> 0)
-                                @forEach($data_produk as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->nama}}</td>
-                                    <td>{{$item->kategori}}</td>
-                                    <td>{{$item->deskripsi}}</td>
-                                    <td>{{$item->stok}}</td>
-                                    <td>
-                                        @if($item->gambar && file_exists(public_path('img/' . $item->gambar)))
-                                        <img src="{{ asset('img/' . $item->gambar) }}" alt="{{ $item->nama }}" width="100">
-                                        @else
-                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image" width="100">
-                                        @endif
-                                    </td>
+                        <form action="{{ route('update') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="produk_id" value="{{$edit_produk->id}}">
+                            <input type="hidden" name="gambar_lama" value="{{$edit_produk->gambar}}"> <!-- Menyertakan gambar lama -->
 
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput" class="form-label">Nama</label>
+                                <input type="text" name="nama" value="{{$edit_produk->nama}}" class="form-control" placeholder="Enter Nama">
+                                @error('nama')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Kategori</label>
+                                <input type="text" name="kategori" class="form-control" value="{{$edit_produk->kategori}}" placeholder="Enter kategori">
+                                @error('kategori')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
 
-                                    <td>{{$item->harga}}</td>
-                                    <td>
-                                        <a href="/produk/{{$item->id}}" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/delete/{{$item->id}}" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-trash"></i> Delete
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('produk.show', $item->id) }}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-eye"></i> Show
-                                        </a>
-                                    </td>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Deskripsi</label>
+                                <textarea name="deskripsi" class="form-control" rows="3">{{$edit_produk->deskripsi}}</textarea>
+                                @error('deskripsi')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
 
-                                </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="8">No user Found!</td>
-                                </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput" class="form-label">Stok</label>
+                                <input type="number" name="stok" value="{{$edit_produk->stok}}" class="form-control" placeholder="Enter Stok">
+                                @error('stok')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Gambar</label>
+                                <input type="file" name="gambar" class="form-control" accept="image/*">
+                                @error('gambar')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Harga</label>
+                                <input type="number" name="harga" value="{{$edit_produk->harga}}" class="form-control" placeholder="Enter Harga">
+                                @error('harga')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+
                     </div>
                 </div>
+
             </div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
