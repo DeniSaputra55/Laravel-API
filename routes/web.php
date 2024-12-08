@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +40,9 @@ Route::get('/todo/{id}', [TodoListController::class,'edit']);
 Route::post('/edit/todo', [TodoListController::class,'update'])->name('update');
 Route::get('/todo/show/{id}', [TodoListController::class, 'show'])->name('todo.show');
 Route::get('/delete/{id}',[TodoListController::class,'destroy']);
+
+//produk
+Route::get('/produk', [ProdukController::class, 'index']);
+
 
 
