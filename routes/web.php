@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,14 @@ Route::get('/buku/{id}', [BukuController::class,'edit']);
 Route::post('/edit/buku', [BukuController::class,'update'])->name('update');
 Route::get('/buku/show/{id}', [BukuController::class, 'show'])->name('buku.show');
 Route::get('/delete/{id}',[BukuController::class,'destroy']);
+
+//todo list
+Route::get('/todo', [TodoListController::class, 'index']);
+Route::get('/add/todo', [TodoListController::class, 'create']);
+Route::post('/add/todo', [TodoListController::class, 'store'])->name('store');
+Route::get('/todo/{id}', [TodoListController::class,'edit']);
+Route::post('/edit/todo', [TodoListController::class,'update'])->name('update');
+Route::get('/todo/show/{id}', [TodoListController::class, 'show'])->name('todo.show');
+Route::get('/delete/{id}',[TodoListController::class,'destroy']);
+
 
